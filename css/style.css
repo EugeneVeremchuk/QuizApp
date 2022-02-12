@@ -33,9 +33,6 @@ body {
 	overflow: hidden;
 }
 
-.quiz-header {
-}
-
 .quiz-progress {
 	width: 0%;
 	height: 10px;
