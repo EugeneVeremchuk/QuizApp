@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 	let questionIndex = 0
 	let score = 0
 	let answersArr = []
-	let answerObj = {}
 
 	clearPage()
 	button.addEventListener('click', checkAnswer)
@@ -78,7 +77,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 		animateQuestion()
 
-		const correctAnswer = answers[correct-1]
+		const correctAnswer = answers[correct - 1]
 
 		const headerTitle = `
 		
@@ -159,61 +158,59 @@ document.addEventListener('DOMContentLoaded', (event) => {
 				showQuestion()
 			}, 500)
 		} else {
-			let finishButton
-
-			setTimeout(showResults, 1000)
-
-			function showResults() {
-
+			setTimeout(() => {
 				clearPage()
-				showResult()
+				showResult(answersArr)
+			}, 1000)
+		}
 
-				function showResult() {
+	}
 
-					const resultTemplate = `
-					
-						<h2 class="title-result">Результаты:</h2>
-						<h3 class="summary">Спасибо что прошли наш тест</h3>
-						<p class="result">Ваш результат ${score}</p>
-				
-					`;
-					header.insertAdjacentHTML('afterbegin', resultTemplate)
+	function showResult(answersArr) {
 
-					answersArr.forEach((item) => {
+		let finishButton
 
-						const { userAnswer, correctAnswer } = item
-					
-					})
+		const resultTemplate = `
+		
+			<h2 class="title-result">Результаты:</h2>
+			<h3 class="summary">Спасибо что прошли наш тест</h3>
+			<p class="result">Ваш результат ${score}</p>
+	
+		`;
+		header.insertAdjacentHTML('afterbegin', resultTemplate)
 
-					
-					finishButton = document.createElement('div')
-					const buttonInner = `
-					
-						<button class="quiz-submit submit" id="submit">Попробывать еще</button>
-				
-					`;
-					header.after(finishButton)
-					finishButton.insertAdjacentHTML('afterbegin', buttonInner)
-				
-				}
+		answersArr.forEach((item) => {
 
-			}
+			const { userAnswer, correctAnswer } = item
 
-			const buttonFinish = finishButton.querySelector('button')
-			console.log(buttonFinish)
-			buttonFinish.addEventListener('click', renderNewQuiz, { once: true })
+		})
 
-			function renderNewQuiz(event) {
 
-				const progressLine = progressCalc()
-				progressLine.style.width = '0%'
+		finishButton = document.createElement('div')
+		finishButton.classList.add('finishButton')
+		const buttonInner = `
+		
+			<button class="quiz-submit submit" id="submit">Попробывать еще</button>
+	
+		`;
+		header.after(finishButton)
+		finishButton.insertAdjacentHTML('afterbegin', buttonInner)
 
-				questionIndex = 0
-				clearPage()
-				showQuestion()
-				return
+		const buttonFinish = finishButton.querySelector('button')
+		console.log(buttonFinish)
+		buttonFinish.addEventListener('click', renderNewQuiz, { once: true })
 
-			}
+		function renderNewQuiz(event) {
+
+			const progressLine = progressCalc()
+			progressLine.style.width = '0%'
+
+			questionIndex = 0
+			finishButton.remove()
+			clearPage()
+			showQuestion()
+			return
+
 		}
 
 	}

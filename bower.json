@@ -1,0 +1,19 @@
+{
+  "name": "QuizApp",
+  "homepage": "https://github.com/EugeneVeremchuk/QuizApp",
+  "authors": [
+    "Eugene Veremchuk <58920440+EugeneVeremchuk@users.noreply.github.com>"
+  ],
+  "description": "QuizApp - check your mind!",
+  "main": "app.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "libs",
+    "test",
+    "tests"
+  ]
+}
