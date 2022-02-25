@@ -89,7 +89,8 @@ const Quiz = () => {
          
             <label class="list-option__item">
                <input class="list-option__radio" data-value="${correctIndex}" data-correct="${correctAnswer}" type="radio" name="quiz-options">
-               <span class="list-option__radio">${option}</span>
+               <div class="list-option__button">${option}</div>
+               <div class="list-option__shadow"></div>
             </label>
 
          `;
@@ -110,14 +111,11 @@ const Quiz = () => {
    $optionList.addEventListener('click', answerProcess)
 
    function answerProcess(event) {
-      
-      const labels = document.querySelectorAll('label')
-      console.log(labels)
-      labels.forEach((item) => {
 
-         console.log(item)
-
-      })
+      if (event.target.matches('.list-option__button')) {
+         const currentOption = event.target
+         currentOption.style.background = '#000'
+      }
 
    }
 
