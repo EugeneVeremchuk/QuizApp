@@ -1,0 +1,262 @@
+/* Fonts Import */
+/* Импорт шрифтов */
+@font-face {
+   font-family: KarloCham;
+   src: url("./../../fonts/karlocham.woff2") format("woff2");
+   font-weight: 400;
+   font-style: normal;
+   font-stretch: normal;
+   font-variant: normal;
+}
+
+body {
+   font-family: KarloCham;
+}
+
+.quiz__page {
+   width: 100%;
+   height: 100vh;
+   min-height: 720px;
+
+   position: relative;
+   overflow: hidden;
+
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   background: linear-gradient(180deg, #5864cf 0%, #6674f4 100%);
+}
+
+.quiz__container {
+   width: 100%;
+   max-width: 1400px;
+
+   padding: 20px 20px;
+}
+.quiz__container::before {
+   content: "";
+   background-image: url("./images/logo.svg");
+   background-position: right;
+   background-repeat: no-repeat;
+   background-size: contain;
+
+   position: absolute;
+   top: -3%;
+   right: -10%;
+   z-index: 1;
+
+   width: 100%;
+   height: 100%;
+}
+@media (max-width: 1440px) {
+   .quiz__container::before {
+      top: -3%;
+      right: -20%;
+   }
+}
+
+.quiz__header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+
+   position: relative;
+}
+.header-quiz__arrowback {
+   width: 70px;
+   height: 70px;
+
+   position: relative;
+   z-index: 2;
+
+   transition: all 0.1s ease-in-out 0s;
+}
+.header-quiz__arrowback:hover {
+   transform: translateX(-5px);
+
+   cursor: pointer;
+}
+.header-quiz__progress {
+   width: 400px;
+   height: 30px;
+   border: 5px solid #faff02;
+   border-radius: 50px;
+}
+.progress-line {
+   width: 50%;
+   height: 100%;
+   background: linear-gradient(270deg, #faff02 0%, #ffffff 80.73%);
+   border-radius: 3px;
+}
+.arrowback-back {
+   width: 100%;
+}
+
+.quiz__list {
+   width: 100%;
+   max-width: 650px;
+   margin: 70px 0px 0px 240px;
+
+   position: relative;
+   z-index: 10;
+}
+@media (max-width: 1280px) {
+   .quiz__list {
+      margin: 60px 0px 0px 170px;
+   }
+}
+.list-quiz__title {
+   margin: 0px 0px 90px 0px;
+
+   font-size: 60px;
+   color: #ffffff;
+}
+@media (max-width: 1280px) {
+   .list-quiz__title {
+      margin: 0px 0px 70px 0px;
+      font-size: 50px;
+   }
+}
+.list-quiz__option {
+   display: grid;
+   grid-template-columns: 300px 300px;
+   gap: 50px;
+}
+@media (max-width: 1280px) {
+   .list-quiz__answers {
+      gap: 30px;
+   }
+}
+.list-option__item {
+   display: block;
+
+   background-color: #ffffff;
+   border-radius: 20px;
+
+   display: flex;
+   justify-content:center;
+   align-items: center;
+
+   text-align: center;
+   padding: 10px;
+
+   width: 300px;
+   height: 100px;
+
+   font-size: 30px;
+   color: #5864cf;
+
+   transition: all 0.1s ease-in-out 0s;
+
+   position: relative;
+}
+.list-option__item::before {
+   content: "";
+
+   width: 100%;
+   height: 100%;
+
+   border-radius: 20px;
+
+   position: absolute;
+   top: 10px;
+   left: 0;
+   z-index: -1;
+
+   background-color: black;
+}
+.list-option__radio {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   z-index: 2;
+
+   transform: translate(-50%,-50%);
+}
+.list-option__item:hover {
+   transform: translateY(2px);
+}
+.list-option__item:active {
+   transform: translateY(7px);
+}
+
+.quiz__answer {
+   text-align: center;
+   padding: 100px 0px 0px 0px;
+}
+.answer-quiz__button {
+   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+   border-radius: 30px;
+
+   width: 350px;
+   height: 90px;
+
+   font-size: 40px;
+   color: #5864cf;
+
+   transition: all 0.2s ease-in-out 0s;
+
+   position: relative;
+   z-index: 2;
+}
+.answer-quiz__button span {
+   margin: 0px 10px;
+   transition: all 0.2s ease-in-out 0s;
+}
+.answer-quiz__button:hover span {
+   margin: 0px 20px;
+}
+
+/* Dev Classes */
+/* Технические классы */
+
+._checked {
+   background: linear-gradient(90deg, #FFFFFF 0%, #24FF00 100%);
+}
+
+._focus {
+   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
+}
+._next {
+   background-color: #ffffff;
+}
+
+/* ScrollBar Customization */
+/* Настройка прокрутки */
+
+::-webkit-scrollbar {
+   width: 10px;
+}
+::-webkit-scrollbar-track {
+   background: linear-gradient(180deg, #5864cf 0%, #6674f4 100%);
+}
+::-webkit-scrollbar-thumb {
+   background-color: #ffffff;
+   border-radius: 10px;
+}
+
+/* Move Object */
+/* Переместить объект */
+
+.header-button {
+   display: none;
+}
+.answer-button {
+   display: none;
+}
+@media (max-width: 1280px) {
+   .header-button {
+      display: block;
+
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2;
+   }
+}
+@media (min-width: 1281px) {
+   .answer-button {
+      display: block;
+   }
+}

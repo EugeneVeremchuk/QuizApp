@@ -1,60 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
+
 	<meta charset="UTF-8" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 	<title>Quiz App</title>
+
+	<!-- Reset defaul styles -->
+	<!-- Сбросить стили по умолчанию -->
+	<link rel="stylesheet" href="libs/normalize.css/normalize.css">
+	<link rel="stylesheet" href="css/null.css">
+
+	<!-- Main Styles -->
+	<!-- Основные Стили -->
 	<link rel="stylesheet" href="css/style.css" />
+
 </head>
 
 <body>
 
-	<div class="quiz" id="quiz">
+	<!-- Root Render -->
+	<!-- Корень рендеринга -->
+	<main id="root">
+		
+	</main>
 
-		<div class="quiz-progress" id="progress">
-			<div class="progress-line"></div>
-		</div>
 
-		<div class="quiz-header" id="header">
-			<h2 class="title">Загружаем вопрос...</h2>
-		</div>
+	<!-- Utilities and Constants -->
+	<!-- Утилиты и константы -->
+	<script src="./constans/db.js"></script>
+	<script src="./constans/root.js"></script>
 
-		<ul class="quiz-list" id="list">
-			<li>
-				<label>
-					<input type="radio" class="answer" name="answer" />
-					<span>Ответ...</span>
-				</label>
-			</li>
-			<li>
-				<label>
-					<input type="radio" class="answer" name="answer" />
-					<span>Ответ...</span>
-				</label>
-			</li>
-			<li>
-				<label>
-					<input type="radio" class="answer" name="answer" />
-					<span>Ответ...</span>
-				</label>
-			</li>
-			<li>
-				<label>
-					<input type="radio" class="answer" name="answer" />
-					<span>Ответ...</span>
-				</label>
-			</li>
-		</ul>
 
-		<div id="button">
-			<button class="quiz-submit submit" id="submit">Ответить</button>
-		</div>
+	<!-- Components -->
+	<!-- Компоненты -->
 
-	</div>
+	<!-- Header -->
+	<script src="./components/Header/Header.js"></script>
+	<link rel="stylesheet" href="./components/Header/Header.css">
 
-	<script src="js/app.js" type="module"></script>
+	<!-- Lobby -->
+	<script src="./components/Lobby/Lobby.js"></script>
+	<link rel="stylesheet" href="./components/Lobby/Lobby.css">
+
+	<!-- Quiz -->
+	<script src="./components/Quiz/Quiz.js"></script>
+	<link rel="stylesheet" href="./components/Quiz/Quiz.css">
+
+
+	<!-- Final Render -->
+	<!-- Окончательный рендер -->
+	<script src="./app.js"></script>
 
 </body>
 
