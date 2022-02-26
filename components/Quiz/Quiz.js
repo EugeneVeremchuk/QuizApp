@@ -40,6 +40,7 @@ const Quiz = () => {
 
    // Getting DOM Elements
    // Получение DOM-элементов
+   const $page = document.getElementById('quizContainer')
    const $header = document.getElementById('quizHeader')
    const $title = document.getElementById('quizTitle')
    const $list = document.getElementById('quizList')
@@ -58,7 +59,9 @@ const Quiz = () => {
    // Adding Listener to button that will check the Answers
    // Добавление прослушивателя на кнопку, которая проверит ответы
    $answerButton.addEventListener('click', checkAnswer)
+   $list.addEventListener('click', activeAnswer)
    renderQuestion() // Rendering first question // Рендеринг первого вопроса
+   dynamicAdapt()
 
    // function that clearText and HTML
    // Функция, что чистит ТЕКСТ и HTML
@@ -79,8 +82,6 @@ const Quiz = () => {
       }
 
    }
-
-   dynamicAdapt()
 
    // Consistent rendering of each question
    // Последовательный рендеринг каждого вопроса
@@ -109,46 +110,57 @@ const Quiz = () => {
 
       })
 
-      const answerButtonTemplate = `
+      if (questionIndex === 0) {
+         const answerButtonTemplate = `
 
-         <button class="answer-quiz__button" id="quizAnswerButton"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+            <button class="answer-quiz__button" id="quizAnswerButton" style="transform: translateX(-300%)"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
         
-      `;
-      $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
+         `;
+         $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
+      } else {
+         const answerButtonTemplate = `
+
+            <button class="answer-quiz__button" id="quizAnswerButton"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+        
+         `;
+         $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
+      }
 
       instanceAnswer = tippy(document.getElementById('quizAnswerButton'))
       instanceAnswer.setProps({
          content: 'Выберите один из вариантов ответа',
          theme: 'quiz',
          arrow: false,
-         trigger: 'mouseenter',
-         followCursor: true,
+         trigger: 'click',
+         animation: 'scale-extreme',
          onShow(instance) {
-
-            
-
+            $page.classList.add('animate__animated', 'animate__shakeX', 'animate__fast')
+         },
+         onHide(instance) {
+            $page.classList.remove('animate__animated', 'animate__shakeX', 'animate__fast')
          }
       })
       instanceAnswer.enable()
 
    }
 
-   $list.addEventListener('click', activeAnswer)
    function activeAnswer(event) {
 
       if (event.target.matches('.list-option__button')) {
          $answerButton.querySelector('.answer-quiz__button').classList.add('_ready')
+         if (questionIndex === 0) {
+            $answerButton.querySelector('.answer-quiz__button').classList.add('animate__animated', 'animate__backInLeft', 'animate__fast')
+         } 
          instanceAnswer.disable()
       }
 
    }
 
-
    function checkAnswer(event) {
 
       const radioButton = $optionList.querySelector('input[type="radio"]:checked')
       let userAnswer
-      let correctAnswer 
+      let correctAnswer
 
       if (!radioButton) {
          return

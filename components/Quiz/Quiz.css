@@ -79,6 +79,9 @@ body {
    margin: -20px 0px 0px 0px;
 
    padding: 20px 20px;
+
+   position: relative;
+   z-index: 10;
 }
 @media (max-width: 1440px) {
    .quiz__container::before {
