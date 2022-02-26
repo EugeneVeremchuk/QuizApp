@@ -25,7 +25,7 @@ const Quiz = () => {
                <div class="quiz__list list-quiz" id="quizList">
                   <div class="list-quiz__title" id="quizTitle">question?</div>
                   <div class="list-quiz__option list-option" id="quizListOption"></div>
-                  <div class="quiz__answer answer-quiz answer-button" id="quizAnswer">
+                  <div class="list-quiz__answer answer-quiz answer-button" id="quizAnswer">
                      <button class="answer-quiz__button"><span>answer</span> <span><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
                   </div>
                </div>
@@ -46,7 +46,7 @@ const Quiz = () => {
    const $title = document.getElementById('quizTitle')
    const $list = document.getElementById('quizList')
    const $optionList = document.getElementById('quizListOption')
-   const $answerButton = document.getElementById('quizAnswer').querySelector('.answer-quiz__button')
+   const $answerButton = document.getElementById('quizAnswer')
    const $progress = document.getElementById('quizProgress')
 
    // Setting Default Values
@@ -67,7 +67,6 @@ const Quiz = () => {
 
       $title.innerHTML = ''
       $optionList.innerHTML = ''
-      $progress.innerHTML = ''
       $answerButton.innerHTML = ''
 
    }
@@ -108,13 +107,11 @@ const Quiz = () => {
 
    }
 
-   $optionList.addEventListener('click', answerProcess)
-
-   function answerProcess(event) {
+   $list.addEventListener('click', activeAnswer)
+   function activeAnswer(event) {
 
       if (event.target.matches('.list-option__button')) {
-         const currentOption = event.target
-         currentOption.style.background = '#000'
+         $answerButton.querySelector('.answer-quiz__button').classList.add('_ready')
       }
 
    }
@@ -147,7 +144,20 @@ const Quiz = () => {
          score++
       }
 
-      // progressCalc()
+      $answerButton.querySelector('.answer-quiz__button').classList.add('_next')
+
+      function progressCalc() {
+
+         const currentIndex = questionIndex + 1
+         const percentage = currentIndex / db.length * 100
+         const progressLine = $progress.querySelector('.progress-line')
+         progressLine.style.width = percentage + '%'
+
+         return progressLine
+
+      }
+
+      progressCalc() 
       nextQuestion(answersArr)
 
    }
@@ -165,7 +175,7 @@ const Quiz = () => {
       } else {
          setTimeout(() => {
             clearContent()
-            //showResult(answersArr)
+            showResult(answersArr)
          }, 1000)
       }
 
@@ -182,7 +192,7 @@ const Quiz = () => {
          <p class="result">Ваш результат ${score}</p>
    
       `;
-      header.insertAdjacentHTML('afterbegin', resultTemplate)
+      $header.insertAdjacentHTML('afterbegin', resultTemplate)
 
       answersArr.forEach((item) => {
 
@@ -198,7 +208,7 @@ const Quiz = () => {
          <button class="quiz-submit submit" id="submit">Попробывать еще</button>
    
       `;
-      header.after(finishButton)
+      $header.after(finishButton)
       finishButton.insertAdjacentHTML('afterbegin', buttonInner)
 
       const buttonFinish = finishButton.querySelector('button')
@@ -218,18 +228,5 @@ const Quiz = () => {
       }
 
    }
-
-   /*
-   function progressCalc() {
-
-      const currentIndex = questionIndex + 1
-      const percentage = currentIndex / db.length * 100
-      const progressLine = $progress.querySelector('.progress-line')
-      progressLine.style.width = percentage + '%'
-
-      return progressLine
-
-   }
-   */
 
 }

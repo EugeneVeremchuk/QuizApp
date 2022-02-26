@@ -89,10 +89,12 @@ body {
    border-radius: 50px;
 }
 .progress-line {
-   width: 50%;
+   width: 0%;
    height: 100%;
    background: linear-gradient(270deg, #faff02 0%, #ffffff 80.73%);
    border-radius: 3px;
+
+   transition: all .2s ease-in-out 0s;
 }
 .arrowback-back {
    width: 100%;
@@ -125,8 +127,11 @@ body {
 }
 .list-quiz__option {
    display: grid;
-   grid-template-columns: 300px 300px;
+   grid-template-columns: repeat(2, minmax(300px, auto));
+   grid-template-rows: minmax(100px, auto) minmax(100px, auto);
    gap: 50px;
+
+   margin: 0px 0px 100px 0px;
 }
 @media (max-width: 1280px) {
    .list-quiz__answers {
@@ -134,7 +139,7 @@ body {
    }
 }
 .list-option__item {
-   display: block;
+   display: grid;
 
    position: relative;
 }
@@ -147,15 +152,11 @@ body {
    align-items: center;
 
    text-align: center;
-   padding: 10px;
 
-   width: 300px;
-   height: 100px;
-
-   font-size: 30px;
+   font-size: 27px;
    color: #5864cf;
 
-   transition: all .1s ease-in-out 0s;
+   padding: 10px 20px;
 
    position: relative;
    z-index: 5;
@@ -184,6 +185,11 @@ body {
 
    transform: translate(-50%,-50%);
 }
+.list-option__radio:checked + .list-option__button {
+   transition: all .1s ease-in-out 0s;
+   background: linear-gradient(90deg, #FFFFFF 20%, #24FF00 100%);
+}
+
 .list-option__button:hover {
    transform: translateY(2px);
 }
@@ -191,12 +197,11 @@ body {
    transform: translateY(6px);
 }
 
-.quiz__answer {
+.list-quiz__answer {
    text-align: center;
-   padding: 100px 0px 0px 0px;
 }
 .answer-quiz__button {
-   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0) 100%);
+   background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.5) 100%);
    border-radius: 30px;
 
    width: 350px;
@@ -211,25 +216,23 @@ body {
    z-index: 2;
 }
 .answer-quiz__button span {
-   margin: 0px 10px;
+   margin: 0px 5px;
    transition: all 0.2s ease-in-out 0s;
 }
-.answer-quiz__button:hover span {
-   margin: 0px 20px;
+.answer-quiz__button span > img {
+   transition: all 0.2s ease-in-out 0s;
 }
-
-/* Dev Classes */
-/* Технические классы */
-
-._checked {
-   background: linear-gradient(90deg, #FFFFFF 0%, #24FF00 100%);
-}
-
-._focus {
-   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
-}
-._next {
+._ready {
    background-color: #ffffff;
+}
+._ready:hover span {
+   margin: 0px 10px;
+}
+._next span {
+   margin: 0px 10px;
+}
+._next span > img {
+   transform: translateX(30px);
 }
 
 /* ScrollBar Customization */

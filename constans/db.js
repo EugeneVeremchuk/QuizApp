@@ -25,4 +25,14 @@ const db = [
       ],
       correct: 1,
    },
+   {
+      question: "Что означает JS?",
+      answers: [
+         "JekiSmart",
+         "JetSki",
+         "JampSky",
+         "JavaScript",
+      ],
+      correct: 4,
+   },
 ]
