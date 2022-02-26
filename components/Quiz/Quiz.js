@@ -18,14 +18,11 @@ const Quiz = () => {
                   <div class="header-quiz__progress" id="quizProgress">
                      <div class="progress-line"></div>
                   </div>
-                  <div class="quiz__answer answer-quiz header-button">
-                     <button class="answer-quiz__button"><span>answer</span> <span><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
-                  </div>
                </header>
                <div class="quiz__list list-quiz" id="quizList">
                   <div class="list-quiz__title" id="quizTitle">question?</div>
                   <div class="list-quiz__option list-option" id="quizListOption"></div>
-                  <div class="list-quiz__answer answer-quiz answer-button" id="quizAnswer">
+                  <div class="list-quiz__answer answer-quiz" id="quizAnswer">
                      <button class="answer-quiz__button"><span>answer</span> <span><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
                   </div>
                </div>
@@ -70,6 +67,18 @@ const Quiz = () => {
       $answerButton.innerHTML = ''
 
    }
+
+   function dynamicAdapt() {
+
+      const innerWidth = document.documentElement.clientWidth
+      if (innerWidth <= 1280) {
+         $header.append($answerButton)
+         $answerButton.classList.add('_adaptive')
+      }
+
+   }
+
+   dynamicAdapt()
 
    // Consistent rendering of each question
    // Последовательный рендеринг каждого вопроса
@@ -228,5 +237,8 @@ const Quiz = () => {
       }
 
    }
+
+   const backToLobby = $header.querySelector('.header-quiz__arrowback')
+   return backToLobby
 
 }

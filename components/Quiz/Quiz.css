@@ -213,7 +213,7 @@ body {
    transition: all 0.2s ease-in-out 0s;
 
    position: relative;
-   z-index: 2;
+   z-index: 3;
 }
 .answer-quiz__button span {
    margin: 0px 5px;
@@ -234,6 +234,11 @@ body {
 ._next span > img {
    transform: translateX(30px);
 }
+._adaptive {
+   position: absolute;
+   top: 100px;
+   right: 0;
+}
 
 /* ScrollBar Customization */
 /* Настройка прокрутки */
@@ -247,29 +252,4 @@ body {
 ::-webkit-scrollbar-thumb {
    background-color: #ffffff;
    border-radius: 10px;
-}
-
-/* Move Object */
-/* Переместить объект */
-
-.header-button {
-   display: none;
-}
-.answer-button {
-   display: none;
-}
-@media (max-width: 1280px) {
-   .header-button {
-      display: block;
-
-      position: absolute;
-      top: 0;
-      right: 0;
-      z-index: 2;
-   }
-}
-@media (min-width: 1281px) {
-   .answer-button {
-      display: block;
-   }
 }
