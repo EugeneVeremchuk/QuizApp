@@ -115,6 +115,17 @@ body {
    height: 30px;
    border: 5px solid #faff02;
    border-radius: 50px;
+
+   position: relative;
+}
+.progress-number {
+   position: absolute;
+   top: -50px;
+   left: 0;
+
+   font-weight: 700;
+   font-size: 40px;
+   color: #faff02;
 }
 .progress-line {
    width: 0%;

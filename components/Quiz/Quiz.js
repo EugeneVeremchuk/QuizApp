@@ -16,6 +16,7 @@ const Quiz = () => {
                      <img class="arrowback-back" src="./components/Quiz/images/arrow-back.svg" alt="arrowback">
                   </div>
                   <div class="header-quiz__progress" id="quizProgress">
+                     <div class="progress-number"><span>0</span> / <span>4</span></div>
                      <div class="progress-line"></div>
                   </div>
                </header>
@@ -109,7 +110,7 @@ const Quiz = () => {
 
       const answerButtonTemplate = `
 
-      <button class="answer-quiz__button"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+         <button class="answer-quiz__button"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
         
       `;
       $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
@@ -159,10 +160,22 @@ const Quiz = () => {
 
          const currentIndex = questionIndex + 1
          const percentage = currentIndex / db.length * 100
-         const progressLine = $progress.querySelector('.progress-line')
-         progressLine.style.width = percentage + '%'
+         
+         const $progressLine = $progress.querySelector('.progress-line')
 
-         return progressLine
+         $progressLine.style.width = percentage + '%'
+
+         const $progressNumber = $progress.querySelector('.progress-number')
+
+         $progressNumber.remove()
+         const progressNumberTemplate = `
+         
+            <div class="progress-number"><span>${currentIndex}</span> / <span>${db.length}</span></div>
+
+         `; 
+         $progress.insertAdjacentHTML('afterbegin', progressNumberTemplate)
+
+         return $progressLine
 
       }
 
