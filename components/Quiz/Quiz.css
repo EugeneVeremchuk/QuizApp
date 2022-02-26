@@ -94,7 +94,7 @@ body {
    background: linear-gradient(270deg, #faff02 0%, #ffffff 80.73%);
    border-radius: 3px;
 
-   transition: all .2s ease-in-out 0s;
+   transition: all 0.2s ease-in-out 0s;
 }
 .arrowback-back {
    width: 100%;
@@ -134,7 +134,7 @@ body {
    margin: 0px 0px 100px 0px;
 }
 @media (max-width: 1280px) {
-   .list-quiz__answers {
+   .list-quiz__option {
       gap: 30px;
       margin: 0px;
    }
@@ -149,7 +149,7 @@ body {
    border-radius: 20px;
 
    display: flex;
-   justify-content:center;
+   justify-content: center;
    align-items: center;
 
    text-align: center;
@@ -175,7 +175,7 @@ body {
 
    background-color: black;
 
-   opacity: .4;
+   opacity: 0.4;
    filter: blur(3px);
 }
 .list-option__radio {
@@ -184,11 +184,11 @@ body {
    left: 50%;
    z-index: 1;
 
-   transform: translate(-50%,-50%);
+   transform: translate(-50%, -50%);
 }
 .list-option__radio:checked + .list-option__button {
-   transition: all .1s ease-in-out 0s;
-   background: linear-gradient(90deg, #FFFFFF 20%, #24FF00 100%);
+   transition: all 0.1s ease-in-out 0s;
+   background: linear-gradient(90deg, #ffffff 20%, #24ff00 100%);
 }
 
 .list-option__button:hover {
@@ -202,7 +202,7 @@ body {
    text-align: center;
 }
 .answer-quiz__button {
-   background: linear-gradient(180deg, #FFFFFF 0%, rgba(255, 255, 255, 0.5) 100%);
+   background: linear-gradient(180deg, #ffffff 0%, rgba(255, 255, 255, 0.5) 100%);
    border-radius: 30px;
 
    width: 350px;
