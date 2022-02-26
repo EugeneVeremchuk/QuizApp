@@ -113,7 +113,7 @@ const Quiz = () => {
       if (questionIndex === 0) {
          const answerButtonTemplate = `
 
-            <button class="answer-quiz__button" id="quizAnswerButton" style="transform: translateX(-300%)"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+            <button class="answer-quiz__button" id="quizAnswerButton" style="opacity: 0"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
         
          `;
          $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
