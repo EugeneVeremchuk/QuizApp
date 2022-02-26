@@ -23,7 +23,7 @@ const Quiz = () => {
                   <div class="list-quiz__title" id="quizTitle">question?</div>
                   <div class="list-quiz__option list-option" id="quizListOption"></div>
                   <div class="list-quiz__answer answer-quiz" id="quizAnswer">
-                     <button class="answer-quiz__button"><span>answer</span> <span><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+                     <button class="answer-quiz__button"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
                   </div>
                </div>
             </div>
@@ -109,7 +109,7 @@ const Quiz = () => {
 
       const answerButtonTemplate = `
 
-         <button class="answer-quiz__button"><span>answer</span> <span><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+      <button class="answer-quiz__button"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
         
       `;
       $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
