@@ -24,7 +24,7 @@ const Quiz = () => {
                   <div class="list-quiz__title" id="quizTitle">question?</div>
                   <div class="list-quiz__option list-option" id="quizListOption"></div>
                   <div class="list-quiz__answer answer-quiz" id="quizAnswer">
-                     <button class="answer-quiz__button"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+                     <button class="answer-quiz__button" id="quizAnswerButton"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
                   </div>
                </div>
             </div>
@@ -52,6 +52,7 @@ const Quiz = () => {
    let questionIndex = 0
    let score = 0
    let answersArr = []
+   let instanceAnswer
 
    clearContent() // clearText and HTML // Чистим текст и HTML
    // Adding Listener to button that will check the Answers
@@ -110,10 +111,25 @@ const Quiz = () => {
 
       const answerButtonTemplate = `
 
-         <button class="answer-quiz__button"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+         <button class="answer-quiz__button" id="quizAnswerButton"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
         
       `;
       $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
+
+      instanceAnswer = tippy(document.getElementById('quizAnswerButton'))
+      instanceAnswer.setProps({
+         content: 'Выберите один из вариантов ответа',
+         theme: 'quiz',
+         arrow: false,
+         trigger: 'mouseenter',
+         followCursor: true,
+         onShow(instance) {
+
+            
+
+         }
+      })
+      instanceAnswer.enable()
 
    }
 
@@ -122,15 +138,24 @@ const Quiz = () => {
 
       if (event.target.matches('.list-option__button')) {
          $answerButton.querySelector('.answer-quiz__button').classList.add('_ready')
+         instanceAnswer.disable()
       }
 
    }
 
+
    function checkAnswer(event) {
 
       const radioButton = $optionList.querySelector('input[type="radio"]:checked')
-      const userAnswer = radioButton.nextElementSibling.textContent
-      const correctAnswer = radioButton.getAttribute('name')
+      let userAnswer
+      let correctAnswer 
+
+      if (!radioButton) {
+         return
+      } else {
+         userAnswer = radioButton.nextElementSibling.textContent
+         correctAnswer = radioButton.getAttribute('name')
+      }
 
       const obj = {
          userAnswer: userAnswer,
@@ -140,11 +165,6 @@ const Quiz = () => {
       answersArr.push(obj)
 
       const { correct } = db[questionIndex]
-
-      if (!radioButton) {
-         //alert('Выберите вариант ответа!')
-         return
-      }
 
       const valueRadioButtonString = radioButton.getAttribute('value')
       const valueRadioButton = Number(valueRadioButtonString)
@@ -160,7 +180,7 @@ const Quiz = () => {
 
          const currentIndex = questionIndex + 1
          const percentage = currentIndex / db.length * 100
-         
+
          const $progressLine = $progress.querySelector('.progress-line')
 
          $progressLine.style.width = percentage + '%'
@@ -172,14 +192,14 @@ const Quiz = () => {
          
             <div class="progress-number"><span>${currentIndex}</span> / <span>${db.length}</span></div>
 
-         `; 
+         `;
          $progress.insertAdjacentHTML('afterbegin', progressNumberTemplate)
 
          return $progressLine
 
       }
 
-      progressCalc() 
+      progressCalc()
       nextQuestion(answersArr)
 
    }
@@ -250,8 +270,5 @@ const Quiz = () => {
       }
 
    }
-
-   const backToLobby = $header.querySelector('.header-quiz__arrowback')
-   return backToLobby
 
 }
