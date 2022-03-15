@@ -10,21 +10,23 @@ const Quiz = () => {
       const html = `
       
          <main class="quiz__page" id="quizPage">
-            <div class="quiz__container" id="quizContainer">
+            <div class="quiz__page-container">
                <header class="quiz__header header-quiz" id="quizHeader">
-                  <div class="header-quiz__arrowback">
+                  <div class="header-quiz__arrowback unselectable">
                      <img class="arrowback-back" src="./components/Quiz/images/arrow-back.svg" alt="arrowback">
                   </div>
-                  <div class="header-quiz__progress" id="quizProgress">
-                     <div class="progress-number"><span>0</span> / <span>4</span></div>
+                  <div class="header-quiz__progress unselectable" id="quizProgress">
+                     <div class="progress-number"><span class="left">0</span> <span class="right">/4</span></div>
                      <div class="progress-line"></div>
                   </div>
                </header>
-               <div class="quiz__list list-quiz" id="quizList">
-                  <div class="list-quiz__title" id="quizTitle">question?</div>
-                  <div class="list-quiz__option list-option" id="quizListOption"></div>
-                  <div class="list-quiz__answer answer-quiz" id="quizAnswer">
+               <div class="quiz__container animate__animated animate__faster animate__fadeIn" id="quizContainer">
+                  <div class="quiz__list list-quiz animate__animated animate__faster" id="quizList">
+                     <div class="list-quiz__title" id="quizTitle">question?</div>
+                     <div class="list-quiz__option list-option" id="quizListOption"></div>
+                     <div class="list-quiz__answer answer-quiz" id="quizAnswer">
                      <button class="answer-quiz__button" id="quizAnswerButton"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+                     </div>
                   </div>
                </div>
             </div>
@@ -40,7 +42,7 @@ const Quiz = () => {
 
    // Getting DOM Elements
    // Получение DOM-элементов
-   const $page = document.getElementById('quizContainer')
+   const $page = document.getElementById('quizPage')
    const $header = document.getElementById('quizHeader')
    const $title = document.getElementById('quizTitle')
    const $list = document.getElementById('quizList')
@@ -53,7 +55,6 @@ const Quiz = () => {
    let questionIndex = 0
    let score = 0
    let answersArr = []
-   let instanceAnswer
 
    clearContent() // clearText and HTML // Чистим текст и HTML
    // Adding Listener to button that will check the Answers
@@ -73,6 +74,8 @@ const Quiz = () => {
 
    }
 
+   // Moving Elements according screen size  
+   // Движущиеся элементы в соответствии с размером экрана  
    function dynamicAdapt() {
 
       const innerWidth = document.documentElement.clientWidth
@@ -89,10 +92,11 @@ const Quiz = () => {
 
       const { question, answers, correct } = db[questionIndex]
 
+      $list.classList.add('animate__fadeIn')
+
       $title.insertAdjacentText('afterbegin', question)
 
       answers.forEach((option, index) => {
-
          const correctAnswer = answers[correct - 1]
          const correctIndex = index + 1
 
@@ -100,50 +104,34 @@ const Quiz = () => {
          
             <label class="list-option__item">
                <input class="list-option__radio" data-value="${correctIndex}" data-correct="${correctAnswer}" type="radio" name="quiz-options">
-               <div class="list-option__button">${option}</div>
+               <div class="list-option__button unselectable">${option}</div>
                <div class="list-option__shadow"></div>
             </label>
 
          `;
-
          $optionList.insertAdjacentHTML('afterbegin', optionTemplate)
-
       })
 
+      let answerButtonTemplate
       if (questionIndex === 0) {
-         const answerButtonTemplate = `
+         answerButtonTemplate = `
 
-            <button class="answer-quiz__button" id="quizAnswerButton" style="opacity: 0"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+            <button class="answer-quiz__button" id="quizAnswerButton" style="opacity: 0"><span class="answer-button__title">next</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
         
          `;
-         $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
       } else {
-         const answerButtonTemplate = `
+         answerButtonTemplate = `
 
-            <button class="answer-quiz__button" id="quizAnswerButton"><span class="answer-button__title">answer</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
+            <button class="answer-quiz__button" id="quizAnswerButton"><span class="answer-button__title">next</span> <span class="answer-button__icon"><img src="./components/Quiz/images/next.svg" alt="next"></span></button>
         
          `;
-         $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
       }
-
-      instanceAnswer = tippy(document.getElementById('quizAnswerButton'))
-      instanceAnswer.setProps({
-         content: 'Выберите один из вариантов ответа',
-         theme: 'quiz',
-         arrow: false,
-         trigger: 'click',
-         animation: 'scale-extreme',
-         onShow(instance) {
-            $page.classList.add('animate__animated', 'animate__shakeX', 'animate__fast')
-         },
-         onHide(instance) {
-            $page.classList.remove('animate__animated', 'animate__shakeX', 'animate__fast')
-         }
-      })
-      instanceAnswer.enable()
+      $answerButton.insertAdjacentHTML('afterbegin', answerButtonTemplate)
 
    }
 
+   // Dynamic behaviour of elements
+   // Динамическое поведение элементов
    function activeAnswer(event) {
 
       if (event.target.matches('.list-option__button')) {
@@ -151,11 +139,12 @@ const Quiz = () => {
          if (questionIndex === 0) {
             $answerButton.querySelector('.answer-quiz__button').classList.add('animate__animated', 'animate__backInLeft', 'animate__fast')
          } 
-         instanceAnswer.disable()
       }
 
    }
 
+   //Checking answer
+   //Проверка ответа
    function checkAnswer(event) {
 
       const radioButton = $optionList.querySelector('input[type="radio"]:checked')
@@ -173,8 +162,6 @@ const Quiz = () => {
          userAnswer: userAnswer,
          correctAnswer: correctAnswer
       }
-
-      answersArr.push(obj)
 
       const { correct } = db[questionIndex]
 
@@ -194,15 +181,13 @@ const Quiz = () => {
          const percentage = currentIndex / db.length * 100
 
          const $progressLine = $progress.querySelector('.progress-line')
-
          $progressLine.style.width = percentage + '%'
 
          const $progressNumber = $progress.querySelector('.progress-number')
-
          $progressNumber.remove()
          const progressNumberTemplate = `
          
-            <div class="progress-number"><span>${currentIndex}</span> / <span>${db.length}</span></div>
+            <div class="progress-number"><span class="left">${currentIndex}</span> <span class="right">/${db.length}</span></span></div>
 
          `;
          $progress.insertAdjacentHTML('afterbegin', progressNumberTemplate)
@@ -212,10 +197,17 @@ const Quiz = () => {
       }
 
       progressCalc()
-      nextQuestion(answersArr)
+      nextQuestion(obj)
+
+      $list.classList.add('animate__fadeOut')
+      $list.addEventListener('animationend', () => {
+         $list.classList.remove('animate__fadeOut')
+      })
 
    }
 
+   //Rendering next question
+   //Рендеринг следующего вопроса
    function nextQuestion(answersArr) {
 
       const questionLenght = db.length - 1
@@ -229,58 +221,18 @@ const Quiz = () => {
       } else {
          setTimeout(() => {
             clearContent()
-            showResult(answersArr)
+            showResult(obj)
          }, 1000)
       }
 
    }
 
    function showResult(answersArr) {
-
-      let finishButton
-
-      const resultTemplate = `
       
-         <h2 class="title-result">Результаты:</h2>
-         <h3 class="summary">Спасибо что прошли наш тест</h3>
-         <p class="result">Ваш результат ${score}</p>
-   
-      `;
-      $header.insertAdjacentHTML('afterbegin', resultTemplate)
 
-      answersArr.forEach((item) => {
-
-         const { userAnswer, correctAnswer } = item
-
-      })
-
-
-      finishButton = document.createElement('div')
-      finishButton.classList.add('finishButton')
-      const buttonInner = `
-      
-         <button class="quiz-submit submit" id="submit">Попробывать еще</button>
-   
-      `;
-      $header.after(finishButton)
-      finishButton.insertAdjacentHTML('afterbegin', buttonInner)
-
-      const buttonFinish = finishButton.querySelector('button')
-      buttonFinish.addEventListener('click', renderNewQuiz, { once: true })
-
-      function renderNewQuiz(event) {
-
-         const progressLine = progressCalc()
-         progressLine.style.width = '0%'
-
-         questionIndex = 0
-         finishButton.remove()
-         clearPage()
-         showQuestion()
-         return
-
-      }
 
    }
 
 }
+
+export default Quiz;

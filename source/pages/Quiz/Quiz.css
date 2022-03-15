@@ -1,37 +1,3 @@
-/* Fonts Import */
-/* Импорт шрифтов */
-@font-face {
-   font-family: KarloCham;
-   src: url("./../../fonts/karlocham.woff2") format("woff2");
-   font-weight: 400;
-   font-style: normal;
-   font-stretch: normal;
-   font-variant: normal;
-}
-@font-face {
-   font-family: Ubuntu;
-   src: url("./../../fonts/ubuntu-light-webfont.woff2") format("woff2");
-   font-weight: 300;
-   font-style: normal;
-   font-stretch: normal;
-   font-variant: normal;
-}
-@font-face {
-   font-family: Ubuntu;
-   src: url("./../../fonts/ubuntu-regular-webfont.woff2") format("woff2");
-   font-weight: 400;
-   font-style: normal;
-   font-stretch: normal;
-   font-variant: normal;
-}
-@font-face {
-   font-family: Ubuntu;
-   src: url("./../../fonts/ubuntu-bold-webfont.woff2") format("woff2");
-   font-weight: 700;
-   font-style: normal;
-   font-stretch: normal;
-   font-variant: normal;
-}
 
 body {
    font-family: KarloCham;
@@ -42,12 +8,12 @@ body {
    height: 100vh;
    min-height: 780px;
 
+   display: flex;
+   justify-content:center;
+   align-items: center;
+
    position: relative;
    overflow: hidden;
-
-   display: flex;
-   justify-content: center;
-   align-items: center;
 
    background: linear-gradient(180deg, #5864cf 0%, #6674f4 100%);
 }
@@ -71,23 +37,12 @@ body {
       min-height: 689px;
    }
 }
-
-.quiz__container {
+.quiz__page-container {
    width: 100%;
    max-width: 1400px;
+   margin: auto;
 
-   margin: -20px 0px 0px 0px;
-
-   padding: 20px 20px;
-
-   position: relative;
-   z-index: 10;
-}
-@media (max-width: 1440px) {
-   .quiz__container::before {
-      top: -3%;
-      right: -20%;
-   }
+   
 }
 
 .quiz__header {
@@ -95,7 +50,20 @@ body {
    justify-content: space-between;
    align-items: center;
 
-   position: relative;
+   width: 100%;
+
+   margin: 70px 0px 0px 0px;
+   padding: 0px 30px;
+
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: 20;
+}
+@media (max-width: 1280px) {
+   .quiz__header {
+      margin: 50px 0px 0px 0px;
+   }
 }
 .header-quiz__arrowback {
    width: 70px;
@@ -116,19 +84,26 @@ body {
 .header-quiz__progress {
    width: 400px;
    height: 30px;
-   border: 5px solid #faff02;
+   background-color: rgba(255, 255, 255, .5); 
    border-radius: 50px;
+   color: #ffffff;
+
+   font-family: Etna;
 
    position: relative;
+}
+.right {
+   font-size: 33px;
+   opacity: .8;
+   display: inline-block;
+   transform: translate(0px,-5px);
 }
 .progress-number {
    position: absolute;
    top: -50px;
-   left: 0;
+   left: 7px;
 
-   font-weight: 700;
    font-size: 40px;
-   color: #faff02;
 }
 @media (max-width: 1280px) {
    .progress-number {
@@ -141,7 +116,7 @@ body {
    width: 0%;
    height: 100%;
    background: linear-gradient(270deg, #faff02 0%, #ffffff 80.73%);
-   border-radius: 3px;
+   border-radius: 50px;
 
    transition: all 0.2s ease-in-out 0s;
 }
@@ -149,19 +124,27 @@ body {
    width: 100%;
 }
 
-.quiz__list {
+.quiz__container {
    width: 100%;
    max-width: 650px;
-   margin: 70px 0px 0px 240px;
+   margin: 0px 0px 0px 240px;
+
+   opacity: 0;
+
+   padding: 20px 20px;
 
    position: relative;
-   z-index: 10;
+   z-index: 15;
 }
 @media (max-width: 1280px) {
-   .quiz__list {
-      margin: 60px 0px 0px 170px;
+   .quiz__container {
+      margin: 0px 0px 0px 170px;
       max-width: 530px;
    }
+}
+.quiz__list {
+   position: relative;
+   z-index: 10;
 }
 .list-quiz__title {
    margin: 0px 0px 90px 0px;
@@ -206,8 +189,9 @@ body {
 
    text-align: center;
 
-   font-family: Ubuntu;
-   font-weight: 700;
+   font-family: LemonMilk;
+   letter-spacing: 3px;
+   font-weight: 500;
    font-size: 27px;
    color: #5864cf;
 
@@ -330,7 +314,7 @@ body {
 ._adaptive {
    position: absolute;
    top: 100px;
-   right: 0;
+   right: 30px;
 }
 
 /* ScrollBar Customization */
