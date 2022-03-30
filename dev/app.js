@@ -1,12 +1,13 @@
 
-import css from './css/style.css'
 import Quiz from './pages/Quiz/Quiz.js'
+import scss from './style.scss'
+
 
 // Loading Page
 // Загрузка страницы
 document.addEventListener('DOMContentLoaded', (event) => {
 
-   // Quiz()
-   console.log(css)
+   //Quiz()
+   console.log('held')
 
 })

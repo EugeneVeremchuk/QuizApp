@@ -1,5 +1,5 @@
 
-const db = [
+export const db = [
    {
       question: "Какой язык работает в браузере?",
       answers: ["Java", "C", "Python", "JavaScript"],
