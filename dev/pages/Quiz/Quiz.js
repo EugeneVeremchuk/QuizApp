@@ -1,4 +1,6 @@
 
+import './Quiz.scss'
+
 // Quiz Page
 // Страница Викторины
 const Quiz = () => {

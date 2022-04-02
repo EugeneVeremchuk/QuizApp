@@ -3,33 +3,15 @@ const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserWebpackPlugin = require("terser-webpack-plugin");
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 const isDev = process.env.NODE_ENV === 'development'
 const isProd = !isDev
 
-const filename = ext => isDev ? `[name].${ext}` : `[name].[contenthash].${ext}`
+const filename = ext => isProd ? `[name].[contenthash].${ext}` : `[name].${ext}`
 const babelPreset = preset => isProd ? [preset] : []
-const postCSS = () => {
-
-   const loader = {
-      loader: 'postcss-loader',
-      options: {
-         postcssOptions: {
-            plugins: [
-               require('autoprefixer'),
-            ]
-         }
-      }
-   }
-   if (isProd) {
-      const plugins = loader.options.postcssOptions.plugins
-      plugins.push(require('cssnano')({ preset: 'default' }))
-   }
-
-   return loader
-
-}
 
 const paths = {
    build: path.resolve(__dirname, 'build'),
@@ -49,7 +31,23 @@ const config = {
    optimization: {
       splitChunks: {
          chunks: 'all'
-      }
+      },
+
+      minimize: isProd,
+      minimizer: [
+         new TerserWebpackPlugin(),
+         new CssMinimizerPlugin({
+            minify: CssMinimizerPlugin.cssnanoMinify,
+            minimizerOptions: {
+               preset: [
+                  "default",
+                  {
+                     discardComments: { removeAll: true },
+                  },
+               ],
+            },
+         })
+      ]
    },
    devtool: isDev ? 'source-map' : 'hidden-source-map',
    devServer: {
@@ -87,16 +85,6 @@ const config = {
    module: {
       rules: [
          {
-            test: /\.scss$/,
-            use: [
-               MiniCssExtractPlugin.loader,
-               'css-loader',
-               postCSS(),
-               'sass-loader'
-            ],
-            exclude: '/node-modules/'
-         },
-         {
             test: /\.js$/,
             use: {
                loader: 'babel-loader',
@@ -104,6 +92,15 @@ const config = {
                   presets: babelPreset('@babel/preset-env')
                }
             },
+            exclude: '/node-modules/'
+         },
+         {
+            test: /\.scss$/,
+            use: [
+               MiniCssExtractPlugin.loader,
+               'css-loader',
+               'sass-loader'
+            ],
             exclude: '/node-modules/'
          },
          {
